@@ -9,8 +9,7 @@ import Footer from "@/app/components/Footer";
 
 export default function Home() {
   return (
-    <main className="bg-[#050508] min-h-screen text-white relative selection:bg-blue-500 selection:text-white">
-      {/* Website Utama (Tanpa Intro Overlay) */}
+    <main>
       <Navbar />
       <Hero />
       <About />

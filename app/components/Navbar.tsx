@@ -1,113 +1,252 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { Mail, MessageSquare } from "lucide-react";
+import { Menu, X } from "lucide-react";
+
+const navItems = [
+  { label: "Identity", href: "#about", id: "about" },
+  { label: "Members", href: "#members", id: "members" },
+  { label: "Journey", href: "#journey", id: "journey" },
+  { label: "Gallery", href: "#gallery", id: "gallery" },
+];
+
+const sectionIds = ["about", "members", "journey", "gallery", "code"];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+
+  /* =========================================================
+     NAVBAR SCROLL STATE
+  ========================================================= */
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+    const handleNavbarScroll = () => {
+      setScrolled(window.scrollY > 40);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    handleNavbarScroll();
+
+    window.addEventListener("scroll", handleNavbarScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleNavbarScroll);
+    };
   }, []);
 
-  const logoClass = "relative block w-40 md:w-48 h-14 md:h-16 flex-shrink-0";
+  /* =========================================================
+     ACTIVE SECTION TRACKING
+  ========================================================= */
+
+  useEffect(() => {
+    const handleSectionTracking = () => {
+      const viewportPoint = window.innerHeight * 0.38;
+
+      let currentSection = "";
+
+      for (const id of sectionIds) {
+        const section = document.getElementById(id);
+
+        if (!section) continue;
+
+        const rect = section.getBoundingClientRect();
+
+        if (
+          rect.top <= viewportPoint &&
+          rect.bottom >= viewportPoint
+        ) {
+          currentSection = id;
+          break;
+        }
+      }
+
+      setActiveSection(currentSection);
+    };
+
+    handleSectionTracking();
+
+    window.addEventListener("scroll", handleSectionTracking, {
+      passive: true,
+    });
+
+    window.addEventListener("resize", handleSectionTracking);
+
+    return () => {
+      window.removeEventListener("scroll", handleSectionTracking);
+      window.removeEventListener("resize", handleSectionTracking);
+    };
+  }, []);
+
+  /* =========================================================
+     MOBILE MENU
+  ========================================================= */
+
+  const closeMobileMenu = () => {
+    setMobileOpen(false);
+  };
 
   return (
     <motion.header
-      initial={{ y: -100, opacity: 0 }}
+      initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#050508]/90 backdrop-blur-md py-2 shadow-lg shadow-black/50"
-          : "bg-transparent py-4"
+      transition={{
+        duration: 0.7,
+        ease: "easeOut",
+      }}
+      className={`fixed left-0 top-0 z-50 w-full transition-[background-color,backdrop-filter,box-shadow] duration-300 ${
+        scrolled || mobileOpen
+          ? "bg-[#030712]/80 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl"
+          : "bg-transparent shadow-none"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between relative">
-        
-        {/* Brand Logo Image: Kiri (Muncul saat di-scroll) */}
-        <a 
-          href="#" 
-          className={`${logoClass} transition-opacity duration-300 ${
-            scrolled ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
+      <div className="relative mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6">
+        {/* =====================================================
+            UNSAP LOGO
+        ====================================================== */}
+
+        <a
+          href="#"
+          aria-label="Back to top"
+          className="relative z-50 block h-10 w-24 shrink-0 md:w-28"
         >
           <Image
-            src="/images/logoinvictus.png"
-            alt="Invictus Logo"
+            src="/images/unsap.webp"
+            alt="UNSAP"
             fill
-            className="object-contain object-left drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
             priority
+            sizes="112px"
+            className="object-contain object-left"
           />
         </a>
 
-        {/* Spacer Kiri */}
-        {!scrolled && <div className={logoClass}></div>}
+        {/* =====================================================
+            DESKTOP NAVIGATION
+        ====================================================== */}
 
-        {/* Navigation Links: Tengah */}
-        <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-          <a href="#about" className="hover:text-blue-400 transition-colors">Identity</a>
-          <a href="#members" className="hover:text-blue-400 transition-colors">Members</a>
-          <a href="#journey" className="hover:text-blue-400 transition-colors">Journey</a>
-          <a href="#gallery" className="hover:text-blue-400 transition-colors">Gallery</a>
-          <a href="#code" className="hover:text-blue-400 transition-colors text-blue-400">The Code</a>
+        <nav
+          aria-label="Primary navigation"
+          className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-9 md:flex"
+        >
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id;
+
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                aria-current={isActive ? "page" : undefined}
+                className={`group relative text-sm font-medium transition-colors duration-300 ${
+                  isActive
+                    ? "text-blue-300"
+                    : "text-slate-300 hover:text-white"
+                }`}
+              >
+                {item.label}
+
+                <span
+                  className={`absolute -bottom-2 left-1/2 h-px -translate-x-1/2 bg-blue-400 transition-all duration-300 ${
+                    isActive
+                      ? "w-full"
+                      : "w-0 group-hover:w-full"
+                  }`}
+                />
+              </a>
+            );
+          })}
         </nav>
 
-        {/* Ikon Sosial Media Melayang: Kanan */}
-        <div className="flex items-center gap-3">
-          
-          {/* Instagram (Custom SVG) */}
-          <a
-            href="https://instagram.com" 
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative p-2.5 rounded-full text-slate-400 hover:text-white transition-colors"
-            aria-label="Instagram"
-          >
-            <span className="absolute inset-0 rounded-full bg-blue-500/0 group-hover:bg-blue-500/20 blur-sm transition-all duration-300"></span>
-            <svg className="w-5 h-5 relative z-10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-            </svg>
-          </a>
+        {/* =====================================================
+            DESKTOP RIGHT SPACER
+        ====================================================== */}
 
-          {/* Email */}
-          <a
-            href="mailto:your-email@example.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative p-2.5 rounded-full text-slate-400 hover:text-white transition-colors"
-            aria-label="Email"
-          >
-            <span className="absolute inset-0 rounded-full bg-blue-500/0 group-hover:bg-blue-500/20 blur-sm transition-all duration-300"></span>
-            <Mail className="w-5 h-5 relative z-10" />
-          </a>
+        <div className="hidden w-24 shrink-0 md:block md:w-28" />
 
-          {/* Chat / WhatsApp */}
-          <a
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative p-2.5 rounded-full text-slate-400 hover:text-white transition-colors"
-            aria-label="Chat"
-          >
-            <span className="absolute inset-0 rounded-full bg-blue-500/0 group-hover:bg-blue-500/20 blur-sm transition-all duration-300"></span>
-            <MessageSquare className="w-5 h-5 relative z-10" />
-          </a>
+        {/* =====================================================
+            MOBILE MENU BUTTON
+        ====================================================== */}
 
-        </div>
+        <button
+          type="button"
+          aria-label={
+            mobileOpen
+              ? "Close navigation menu"
+              : "Open navigation menu"
+          }
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen((prev) => !prev)}
+          className="relative z-50 flex h-10 w-10 items-center justify-center rounded-full border border-blue-400/15 bg-blue-500/5 text-slate-200 transition-colors hover:bg-blue-500/10 md:hidden"
+        >
+          {mobileOpen ? (
+            <X className="h-5 w-5" />
+          ) : (
+            <Menu className="h-5 w-5" />
+          )}
+        </button>
       </div>
+
+      {/* =====================================================
+          MOBILE NAVIGATION
+      ====================================================== */}
+
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -10,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: -10,
+            }}
+            transition={{
+              duration: 0.22,
+              ease: "easeOut",
+            }}
+            className="bg-[#030712]/95 px-6 pb-6 pt-3 backdrop-blur-xl md:hidden"
+          >
+            <nav
+              aria-label="Mobile navigation"
+              className="flex flex-col"
+            >
+              {navItems.map((item) => {
+                const isActive = activeSection === item.id;
+
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={closeMobileMenu}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`relative py-4 text-sm font-medium transition-colors duration-300 ${
+                      isActive
+                        ? "text-blue-300"
+                        : "text-slate-300 hover:text-white"
+                    }`}
+                  >
+                    <span>{item.label}</span>
+
+                    <span
+                      className={`absolute bottom-2 left-0 h-px bg-blue-400 transition-all duration-300 ${
+                        isActive ? "w-8" : "w-0"
+                      }`}
+                    />
+                  </a>
+                );
+              })}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }

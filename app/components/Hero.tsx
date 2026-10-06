@@ -6,44 +6,77 @@ import { ArrowDown } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative w-full h-screen flex flex-col items-center justify-center px-4 overflow-hidden bg-black">
-      
-      {/* Background Gradasi Vertikal Nge-blend Persis Poster Invictus */}
-      <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black via-[#0a184f] to-[#3b82f6] opacity-95 pointer-events-none"></div>
-      
-      {/* Efek Glow Utama di Tengah */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[700px] bg-blue-500/35 blur-[200px] rounded-full pointer-events-none"></div>
+    <section
+      id="hero"
+      className="relative flex min-h-svh w-full items-center justify-center overflow-hidden bg-[#020617] px-4"
+    >
+      {/* Base Gradient */}
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,#020617_0%,#071a4d_42%,#2563eb_100%)]" />
 
-      {/* Konten Murni Logo Full Selayar */}
-      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
-        
-        {/* Logo Invictus Ekstra Besar (Full Lebar Layar) */}
+      {/* Main Blue Atmosphere */}
+      <div className="pointer-events-none absolute left-1/2 top-[52%] h-[520px] w-[760px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/25 blur-[130px] md:h-[620px] md:w-[1000px]" />
+
+      {/* Upper Soft Glow */}
+      <div className="pointer-events-none absolute left-1/2 top-[18%] h-[260px] w-[520px] -translate-x-1/2 rounded-full bg-blue-400/10 blur-[120px]" />
+
+      {/* Bottom Light Bloom */}
+      <div className="pointer-events-none absolute bottom-[-160px] left-1/2 h-[360px] w-[110%] -translate-x-1/2 rounded-[50%] bg-blue-400/20 blur-[100px]" />
+
+      {/* Main Content */}
+      <div className="relative z-10 flex min-h-svh w-full max-w-7xl items-center justify-center">
+        {/* Invictus Logo */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="relative w-[95%] sm:w-[85%] md:w-[75%] lg:w-[65%] h-[50vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center"
+          initial={{
+            opacity: 0,
+            scale: 0.92,
+            y: 28,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 1.1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="relative h-[58vh] w-[118%] sm:h-[64vh] sm:w-[112%] md:h-[72vh] md:w-[102%] lg:h-[78vh] lg:w-[96%]"
         >
           <Image
             src="/images/logoinvictus.webp"
-            alt="Invictus Logo Full"
+            alt="Invictus"
             fill
-            className="object-contain scale-125 sm:scale-150 md:scale-175 drop-shadow-[0_0_80px_rgba(59,130,246,0.95)]"
             priority
+            sizes="(max-width: 640px) 118vw, (max-width: 768px) 112vw, (max-width: 1024px) 102vw, 96vw"
+            className="object-contain drop-shadow-[0_0_55px_rgba(96,165,250,0.55)]"
           />
         </motion.div>
 
-        {/* Indikator Scroll ke Bawah */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-6 flex flex-col items-center gap-1.5 text-blue-300/60"
+        {/* Scroll Indicator */}
+        <motion.a
+          href="#about"
+          aria-label="Scroll to Identity section"
+          initial={{
+            opacity: 0,
+            y: 10,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            delay: 1,
+            duration: 0.8,
+            ease: "easeOut",
+          }}
+          className="group absolute bottom-7 flex flex-col items-center gap-2 text-blue-200/50 transition-colors duration-300 hover:text-blue-100 md:bottom-8"
         >
-          <span className="text-[10px] uppercase font-cinzel tracking-[0.3em]">Scroll Down</span>
-          <ArrowDown className="w-4 h-4 animate-bounce text-blue-400" />
-        </motion.div>
+          <span className="text-[9px] font-medium uppercase tracking-[0.35em] sm:text-[10px]">
+            Scroll Down
+          </span>
 
+          <ArrowDown className="h-4 w-4 animate-bounce transition-colors duration-300 group-hover:text-white" />
+        </motion.a>
       </div>
     </section>
   );

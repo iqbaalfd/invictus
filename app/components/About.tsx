@@ -1,72 +1,249 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Users, Calendar, Award } from "lucide-react";
 
 export default function About() {
-  const stats = [
-    { icon: <Calendar className="w-6 h-6 text-blue-400" />, label: "Tahun Berdiri", value: "2023 — 2026" },
-    { icon: <Shield className="w-6 h-6 text-blue-400" />, label: "Jurusan / Kelas", value: "Informatics & Science" },
-    { icon: <Users className="w-6 h-6 text-blue-400" />, label: "Jumlah Anggota", value: "32 Unconquered" },
-    { icon: <Award className="w-6 h-6 text-blue-400" />, label: "Motto Kelas", value: "One Generation, Infinite Legacy" },
-  ];
-
   return (
-    <section id="about" className="relative py-32 px-6 bg-[#050508] overflow-hidden">
-      
-      {/* Background Accent Glow */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none"></div>
+    <section
+      id="about"
+      className="relative overflow-hidden bg-[#030712] py-24 md:py-32"
+    >
+      {/* Soft transition from Hero */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-blue-700/20 via-blue-900/5 to-transparent" />
 
-      <div className="max-w-6xl mx-auto">
-        
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
-        >
-          <span className="text-blue-400 font-cinzel text-sm tracking-[0.3em] uppercase block mb-3">
-            Our Identity
-          </span>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white font-cinzel mb-6">
-            The Essence of Invictus
-          </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed font-light">
-            Invictus represents a generation that stands undefeated — united by memories, challenges, and dreams that shape our journey through time.
-          </p>
-        </motion.div>
+      {/* Ambient Blue Glow */}
+      <div className="pointer-events-none absolute -left-40 top-1/3 h-[420px] w-[420px] rounded-full bg-blue-600/10 blur-[140px]" />
 
-        {/* Organization Profile Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((item, index) => (
+      <div className="pointer-events-none absolute -right-40 bottom-10 h-[460px] w-[460px] rounded-full bg-blue-500/10 blur-[150px]" />
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12">
+        <div className="mx-auto max-w-5xl">
+          {/* Section Label */}
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.3,
+            }}
+            transition={{
+              duration: 0.7,
+              ease: "easeOut",
+            }}
+            className="mb-6 text-center"
+          >
+            <span className="text-xs font-semibold uppercase tracking-[0.4em] text-blue-400">
+              Our Identity
+            </span>
+          </motion.div>
+
+          {/* Main Statement */}
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 30,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.3,
+            }}
+            transition={{
+              duration: 0.9,
+              delay: 0.08,
+              ease: "easeOut",
+            }}
+            className="mb-14 text-center md:mb-18"
+          >
+            <h2 className="text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-7xl lg:text-8xl">
+              The Essence
+              <br />
+
+              <span className="bg-gradient-to-r from-white via-blue-200 to-blue-400 bg-clip-text text-transparent">
+                of Invictus.
+              </span>
+            </h2>
+
+            <div className="mx-auto mt-7 h-px w-16 bg-gradient-to-r from-transparent via-blue-400/60 to-transparent" />
+          </motion.div>
+
+          {/* Editorial Content */}
+          <div className="mb-16 grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16">
+            {/* Core Philosophy */}
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="relative p-8 rounded-2xl bg-[#0b0b10] border border-blue-900/30 hover:border-blue-500/50 transition-all duration-500 group hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)]"
+              initial={{
+                opacity: 0,
+                y: 30,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.25,
+              }}
+              transition={{
+                duration: 0.7,
+                ease: "easeOut",
+              }}
+              className="flex h-full flex-col justify-between"
             >
-              {/* Subtle card glow on hover */}
-              <div className="absolute inset-0 bg-gradient-to-b from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
+              <div>
+                <span className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.3em] text-blue-400">
+                  Core Philosophy
+                </span>
 
-              <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-blue-950/50 border border-blue-800/40 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  {item.icon}
-                </div>
-                <h3 className="text-slate-400 text-xs uppercase tracking-widest font-medium mb-2">
-                  {item.label}
+                <h3 className="text-xl font-bold tracking-tight text-white md:text-2xl">
+                  “One Generation, Infinite Legacy”
                 </h3>
-                <p className="text-white text-lg font-semibold font-cinzel tracking-wide">
-                  {item.value}
+
+                <p className="mt-4 text-sm font-light leading-7 text-slate-400 md:text-base md:leading-8">
+                  More than a class. More than a name. Invictus is the story of
+                  32 individuals who grew, struggled, and created a legacy
+                  together.
                 </p>
               </div>
-            </motion.div>
-          ))}
-        </div>
 
+              <div className="mt-7 h-px w-full bg-gradient-to-r from-blue-400/30 to-transparent" />
+            </motion.div>
+
+            {/* The Journey */}
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 30,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.25,
+              }}
+              transition={{
+                duration: 0.7,
+                delay: 0.12,
+                ease: "easeOut",
+              }}
+              className="flex h-full flex-col justify-between"
+            >
+              <div>
+                <span className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.3em] text-blue-400">
+                  The Journey
+                </span>
+
+                <h3 className="text-xl font-bold tracking-tight text-white md:text-2xl">
+                  Forged Through Growth
+                </h3>
+
+                <p className="mt-4 text-sm font-light leading-7 text-slate-400 md:text-base md:leading-8">
+                  Every challenge shaped us. Every memory connected us. And
+                  every step forward became part of something bigger than
+                  ourselves.
+                </p>
+              </div>
+
+              <div className="mt-7 h-px w-full bg-gradient-to-r from-blue-400/30 to-transparent" />
+            </motion.div>
+          </div>
+
+          {/* Identity Data */}
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+            }}
+            transition={{
+              duration: 0.8,
+              delay: 0.2,
+              ease: "easeOut",
+            }}
+            className="grid grid-cols-2 gap-x-6 gap-y-10 border-t border-blue-400/10 pt-9 md:grid-cols-4"
+          >
+            <div>
+              <span className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.3em] text-slate-500 md:text-[10px]">
+                Established
+              </span>
+
+              <span className="text-sm font-semibold tracking-wide text-white md:text-base">
+                2023 — 2026
+              </span>
+            </div>
+
+            <div>
+              <span className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.3em] text-slate-500 md:text-[10px]">
+                Major & Class
+              </span>
+
+              <span className="text-sm font-semibold tracking-wide text-white md:text-base">
+                Informatics 7C
+              </span>
+            </div>
+
+            <div>
+              <span className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.3em] text-slate-500 md:text-[10px]">
+                Faculty
+              </span>
+
+              <span className="text-sm font-semibold tracking-wide text-white md:text-base">
+                Information Technology
+              </span>
+            </div>
+
+            <div>
+              <span className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.3em] text-slate-500 md:text-[10px]">
+                University
+              </span>
+
+              <span className="text-sm font-semibold tracking-wide text-white md:text-base">
+                Sebelas April Sumedang
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Closing Line */}
+          <motion.div
+            initial={{
+              opacity: 0,
+            }}
+            whileInView={{
+              opacity: 1,
+            }}
+            viewport={{
+              once: true,
+            }}
+            transition={{
+              duration: 1,
+              delay: 0.4,
+            }}
+            className="mt-16 flex flex-col items-center justify-center"
+          >
+            <div className="mb-4 h-px w-12 bg-gradient-to-r from-transparent via-blue-400/60 to-transparent" />
+
+            <p className="text-center text-[9px] font-medium uppercase tracking-[0.35em] text-slate-500 md:text-xs">
+              Different Stories. One Identity.
+            </p>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
