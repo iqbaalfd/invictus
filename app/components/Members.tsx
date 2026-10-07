@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 const members = Array.from({ length: 32 }, (_, index) => ({
   id: index + 1,
-  name: `Member ${String(index + 1).padStart(2, "0")}`,
-  role: "Invictus Member",
+  name: `Name ${String(index + 1).padStart(2, "0")}`,
+  note: "Invictus / Informatics 7C",
 }));
 
 export default function Members() {
@@ -20,7 +20,10 @@ export default function Members() {
       <div className="pointer-events-none absolute -right-40 bottom-20 h-[460px] w-[460px] rounded-full bg-blue-500/10 blur-[150px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12">
-        {/* Header */}
+        {/* =====================================================
+            HEADER
+        ====================================================== */}
+
         <div className="mb-14 md:mb-16">
           <motion.span
             initial={{ opacity: 0, y: 16 }}
@@ -81,14 +84,29 @@ export default function Members() {
           </div>
         </div>
 
-        {/* Members Wall */}
-        <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-5 md:grid-cols-4 md:gap-x-6 md:gap-y-14 lg:grid-cols-5">
-          {members.map((member, index) => {
-            const stagger =
-              index % 5 === 1 || index % 5 === 3
-                ? "md:translate-y-8"
-                : "";
+        {/* =====================================================
+            SCRAPBOOK WALL
+        ====================================================== */}
 
+        <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-8 md:grid-cols-4 md:gap-x-8 md:gap-y-12 lg:grid-cols-5">
+          {members.map((member, index) => {
+            const number = String(member.id).padStart(2, "0");
+
+            /*
+             * Subtle scrapbook rhythm.
+             * Only desktop gets vertical offsets.
+             */
+            const offset =
+              index % 5 === 1
+                ? "md:translate-y-8"
+                : index % 5 === 3
+                  ? "md:-translate-y-4"
+                  : "";
+
+            /*
+             * Last two cards are positioned so the final row
+             * feels intentionally composed rather than automatic.
+             */
             const isSecondLast = index === members.length - 2;
             const isLast = index === members.length - 1;
 
@@ -107,7 +125,7 @@ export default function Members() {
                 key={member.id}
                 initial={{
                   opacity: 0,
-                  y: 26,
+                  y: 28,
                 }}
                 whileInView={{
                   opacity: 1,
@@ -115,61 +133,88 @@ export default function Members() {
                 }}
                 viewport={{
                   once: true,
-                  amount: 0.15,
+                  amount: 0.12,
                 }}
                 transition={{
-                  duration: 0.6,
-                  delay: (index % 5) * 0.05,
-                  ease: "easeOut",
+                  duration: 0.65,
+                  delay: (index % 5) * 0.06,
+                  ease: [0.22, 1, 0.36, 1],
                 }}
-                className={`group ${stagger} ${desktopPosition}`}
+                className={`group ${offset} ${desktopPosition}`}
               >
-                {/* Portrait */}
-                <div className="relative aspect-[3/4] overflow-hidden rounded-[22px] bg-[#071225]">
-                  {/* Placeholder Background */}
-                  <div className="absolute inset-0 bg-[linear-gradient(145deg,#071225_0%,#0b1f44_55%,#1d4ed8_100%)]" />
+                {/* =================================================
+                    SCRAPBOOK CARD
+                ================================================== */}
 
-                  {/* Soft Glow */}
-                  <div className="pointer-events-none absolute left-1/2 top-1/2 h-[65%] w-[65%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-400/10 blur-[50px]" />
+                <div className="relative overflow-hidden rounded-[20px] border border-blue-300/10 bg-[#071225] p-3 transition-all duration-500 group-hover:-translate-y-1 group-hover:border-blue-300/25 group-hover:bg-[#091a35] group-hover:shadow-[0_18px_45px_rgba(15,23,42,0.45)] sm:p-4">
+                  {/* Inner Archive Area */}
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-[14px] border border-white/[0.05] bg-[#0a1830]">
+                    {/* Abstract Placeholder */}
+                    <div className="absolute inset-0 bg-[linear-gradient(145deg,#071225_0%,#0b1f44_50%,#123b83_100%)] transition-transform duration-700 group-hover:scale-[1.03]" />
 
-                  {/* Placeholder Number */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-4xl font-extrabold tracking-tight text-white/[0.08] sm:text-5xl">
-                      {String(member.id).padStart(2, "0")}
+                    {/* Soft Light */}
+                    <div className="pointer-events-none absolute left-1/2 top-1/2 h-[70%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-400/[0.08] blur-[55px]" />
+
+                    {/* Large Number */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="select-none text-[72px] font-extrabold leading-none tracking-[-0.08em] text-white/[0.07] sm:text-[88px]">
+                        {number}
+                      </span>
+                    </div>
+
+                    {/* Archive Label */}
+                    <div className="absolute left-4 top-4">
+                      <span className="text-[8px] font-semibold uppercase tracking-[0.3em] text-blue-300/70">
+                        INVICTUS
+                      </span>
+                    </div>
+
+                    {/* Corner Number */}
+                    <span className="absolute right-4 top-4 text-[8px] font-semibold tracking-[0.25em] text-white/30">
+                      {number}
                     </span>
+
+                    {/* Bottom Fade */}
+                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#020617]/80 via-[#020617]/20 to-transparent" />
+
+                    {/* Decorative Line */}
+                    <div className="absolute bottom-4 left-4 h-px w-8 bg-blue-400/50 transition-all duration-500 group-hover:w-14" />
+
+                    {/* Hover Glow */}
+                    <div className="pointer-events-none absolute inset-0 bg-blue-400/0 transition-colors duration-500 group-hover:bg-blue-400/[0.025]" />
                   </div>
 
-                  {/* Top Number */}
-                  <span className="absolute right-4 top-4 text-[9px] font-semibold tracking-[0.3em] text-white/35">
-                    {String(member.id).padStart(2, "0")}
-                  </span>
+                  {/* =================================================
+                      MEMBER INFORMATION
+                  ================================================== */}
 
-                  {/* Bottom Vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/50 via-transparent to-transparent" />
+                  <div className="px-1 pb-1 pt-4">
+                    <div className="flex items-end justify-between gap-3">
+                      <div className="min-w-0">
+                        <span className="block text-[8px] font-medium uppercase tracking-[0.28em] text-slate-500">
+                          {member.note}
+                        </span>
 
-                  {/* Hover Layer */}
-                  <div className="pointer-events-none absolute inset-0 bg-blue-400/0 transition-colors duration-500 group-hover:bg-blue-400/[0.03]" />
+                        <h3 className="mt-1 truncate text-sm font-semibold tracking-tight text-white sm:text-base">
+                          {member.name}
+                        </h3>
+                      </div>
 
-                  {/* Border */}
-                  <div className="pointer-events-none absolute inset-0 rounded-[22px] ring-1 ring-inset ring-white/5 transition-all duration-500 group-hover:ring-blue-400/30" />
-                </div>
-
-                {/* Info */}
-                <div className="mt-4">
-                  <span className="block text-[9px] font-semibold uppercase tracking-[0.25em] text-blue-400">
-                    {member.role}
-                  </span>
-
-                  <h3 className="mt-1 text-sm font-semibold tracking-tight text-white md:text-base">
-                    {member.name}
-                  </h3>
+                      <span className="shrink-0 text-[9px] font-medium tracking-[0.2em] text-blue-400/60">
+                        {number}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </motion.article>
             );
           })}
         </div>
 
-        {/* Closing */}
+        {/* =====================================================
+            CLOSING
+        ====================================================== */}
+
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -178,9 +223,9 @@ export default function Members() {
             duration: 0.8,
             delay: 0.2,
           }}
-          className="mt-14 flex justify-end border-t border-blue-400/10 pt-6 md:mt-16"
+          className="mt-14 border-t border-blue-400/10 pt-6 md:mt-16"
         >
-          <p className="max-w-md text-right text-xs leading-6 text-slate-500 md:text-sm">
+          <p className="max-w-md text-left text-xs leading-6 text-slate-500 md:text-sm">
             One class. Thirty-two stories.
             <span className="text-slate-300">
               {" "}

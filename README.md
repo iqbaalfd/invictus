@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# INVICTUS
 
-## Getting Started
+<p align="center">
+  <img src="./preview.png" alt="INVICTUS Website Preview" width="100%" />
+</p>
 
-First, run the development server:
+<p align="center">
+  A digital class archive for INVICTUS — Informatics 7C, Universitas Sebelas April.
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## About
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**INVICTUS** is a digital class archive created to preserve the people, memories, journey, and identity of the Invictus generation.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+More than a class website, it is a digital monument built around the idea of:
 
-## Learn More
+> **One Class. One Story. One Legacy.**
 
-To learn more about Next.js, take a look at the following resources:
+The website combines an editorial yearbook aesthetic with a modern dark-blue visual identity, subtle motion, and immersive typography.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech Stack
 
-## Deploy on Vercel
+- **Next.js**
+- **React**
+- **TypeScript**
+- **Tailwind CSS**
+- **Framer Motion**
+- **Lucide React**
+- **Plus Jakarta Sans**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Features
+
+- Responsive design
+- Animated page transitions and interactions
+- Editorial-style member archive
+- Class journey timeline
+- Photo gallery
+- Interactive Invictus Code manifesto
+- Responsive navigation
+- Optimized images with `next/image`
+- SEO metadata and Open Graph support
+
+---
+
+<p align="center">
+  <strong>One Class. One Story. One Legacy.</strong>
+</p>
+
+---

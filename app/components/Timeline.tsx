@@ -62,7 +62,7 @@ export default function Timeline() {
             duration: 0.8,
             ease: "easeOut",
           }}
-          className="mb-14 ml-auto max-w-3xl text-right md:mb-18"
+          className="mb-14 ml-auto max-w-3xl text-right md:mb-16"
         >
           <span className="mb-4 block text-xs font-semibold uppercase tracking-[0.4em] text-blue-400">
             Our Journey
@@ -83,7 +83,6 @@ export default function Timeline() {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Vertical Timeline Line */}
           <div className="absolute bottom-0 left-[23px] top-0 w-px bg-gradient-to-b from-blue-400/50 via-blue-500/20 to-transparent md:left-1/2" />
 
           <div className="space-y-16 md:space-y-20">
@@ -125,7 +124,6 @@ export default function Timeline() {
                         : "md:col-start-2 md:pl-16"
                     }`}
                   >
-                    {/* Label */}
                     <div
                       className={`mb-4 flex items-center gap-4 ${
                         isLeft ? "md:justify-end" : ""
@@ -138,7 +136,6 @@ export default function Timeline() {
                       <span className="h-px w-8 bg-blue-400/30" />
                     </div>
 
-                    {/* Year + Story */}
                     <div
                       className={`flex items-start gap-5 ${
                         isLeft ? "md:flex-row-reverse" : ""
@@ -165,31 +162,31 @@ export default function Timeline() {
           </div>
         </div>
 
-        {/* Closing */}
-        <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          whileInView={{
-            opacity: 1,
-          }}
-          viewport={{
-            once: true,
-          }}
-          transition={{
-            duration: 0.8,
-            delay: 0.2,
-          }}
-          className="mt-16 flex justify-end border-t border-blue-400/10 pt-6 md:mt-20"
-        >
-          <p className="max-w-md text-right text-xs leading-6 text-slate-500 md:text-sm">
-            Four years. Countless moments.
-            <span className="text-slate-300">
-              {" "}
-              One journey we will always remember.
-            </span>
-          </p>
-        </motion.div>
+{/* Closing */}
+<motion.div
+  initial={{
+    opacity: 0,
+  }}
+  whileInView={{
+    opacity: 1,
+  }}
+  viewport={{
+    once: true,
+  }}
+  transition={{
+    duration: 0.8,
+    delay: 0.2,
+  }}
+  className="mt-16 border-t border-blue-400/10 pt-6 md:mt-20"
+>
+  <p className="max-w-md text-left text-xs leading-6 text-slate-500 md:text-sm">
+    Four years. Countless moments.
+    <span className="text-slate-300">
+      {" "}
+      One journey we will always remember.
+    </span>
+  </p>
+</motion.div>
       </div>
     </section>
   );

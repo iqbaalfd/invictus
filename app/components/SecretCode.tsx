@@ -32,7 +32,7 @@ export default function SecretCode() {
   return (
     <section
       id="code"
-      className="relative overflow-hidden bg-[#030712] pt-20 pb-20 md:pt-24 md:pb-24"
+      className="relative overflow-hidden bg-[#030712] pt-16 pb-16 md:pt-20 md:pb-20"
     >
       {/* Ambient Glow */}
       <div className="pointer-events-none absolute -left-40 top-32 h-[420px] w-[420px] rounded-full bg-blue-600/10 blur-[150px]" />
@@ -60,7 +60,7 @@ export default function SecretCode() {
             duration: 0.8,
             ease: "easeOut",
           }}
-          className="mb-14 ml-auto max-w-3xl text-right md:mb-16"
+          className="mx-auto mb-14 max-w-3xl text-center md:mb-16"
         >
           <span className="mb-4 block text-xs font-semibold uppercase tracking-[0.4em] text-blue-400">
             The Invictus Code
@@ -73,7 +73,7 @@ export default function SecretCode() {
             </span>
           </h2>
 
-          <p className="ml-auto mt-6 max-w-xl text-sm font-light leading-7 text-slate-400 md:text-base md:leading-8">
+          <p className="mx-auto mt-6 max-w-xl text-sm font-light leading-7 text-slate-400 md:text-base md:leading-8">
             Three ideas. One identity. A simple manifesto that carries the
             meaning of Invictus beyond a name.
           </p>
@@ -93,7 +93,8 @@ export default function SecretCode() {
                   key={item.number}
                   type="button"
                   onClick={() => setActiveIndex(index)}
-                  className={`group relative min-h-[180px] border-blue-400/10 px-0 py-8 text-left transition-colors duration-500 md:min-h-[220px] md:px-8 md:py-10 ${
+                  aria-pressed={isActive}
+                  className={`group relative min-h-[150px] border-blue-400/10 px-0 py-7 text-left transition-colors duration-500 md:min-h-[220px] md:px-8 md:py-10 ${
                     index !== manifestoItems.length - 1
                       ? "border-b md:border-b-0 md:border-r"
                       : ""
@@ -158,7 +159,7 @@ export default function SecretCode() {
             ACTIVE MANIFESTO
         ====================================================== */}
 
-        <div className="grid gap-10 py-12 md:grid-cols-[0.8fr_1.2fr] md:items-start md:py-16">
+        <div className="grid gap-10 py-10 md:grid-cols-[0.8fr_1.2fr] md:items-start md:py-14">
           {/* Large Number */}
           <div className="relative">
             <AnimatePresence mode="wait">
@@ -224,35 +225,6 @@ export default function SecretCode() {
             </AnimatePresence>
           </div>
         </div>
-
-        {/* =====================================================
-            FINAL STATEMENT
-        ====================================================== */}
-
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 18,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-          }}
-          transition={{
-            duration: 0.8,
-            delay: 0.1,
-          }}
-          className="border-t border-blue-400/10 pt-8"
-        >
-          <p className="text-center text-xl font-bold tracking-tight text-white/70 sm:text-2xl md:text-3xl">
-            One Class.
-            <span className="text-blue-300"> One Story.</span>
-            <span className="text-white"> One Legacy.</span>
-          </p>
-        </motion.div>
       </div>
     </section>
   );

@@ -8,9 +8,6 @@ export default function About() {
       id="about"
       className="relative overflow-hidden bg-[#030712] py-24 md:py-32"
     >
-      {/* Soft transition from Hero */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-blue-700/20 via-blue-900/5 to-transparent" />
-
       {/* Ambient Blue Glow */}
       <div className="pointer-events-none absolute -left-40 top-1/3 h-[420px] w-[420px] rounded-full bg-blue-600/10 blur-[140px]" />
 
@@ -63,7 +60,7 @@ export default function About() {
               delay: 0.08,
               ease: "easeOut",
             }}
-            className="mb-14 text-center md:mb-18"
+            className="mb-14 text-center md:mb-16"
           >
             <h2 className="text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-7xl lg:text-8xl">
               The Essence
